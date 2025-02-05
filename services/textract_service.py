@@ -63,7 +63,7 @@ class TextractClass:
             document_bytes = base64.b64decode(doc_base64)
 
             # Faz o upload do PDF para o S3
-            s3_path = self.s3_service.put_object(document_bytes, bucket_name, file_name)
+            self.s3_service.put_object(document_bytes, bucket_name, file_name)
 
             # Inicia o processamento do documento com várias páginas
             response = self.textract_client.start_document_text_detection(
@@ -79,10 +79,14 @@ class TextractClass:
                     break
                 time.sleep(5)  # Espera 5 segundos antes de verificar novamente
 
+            # Verifica se o processamento foi bem sucedido
             if status == 'SUCCEEDED':
+                
                 # Obtém todos os resultados (pode ser paginado)
                 results = []
                 next_token = None
+                
+                # Loop para obter todos os resultados
                 while True:
                     if next_token:
                         response = self.textract_client.get_document_text_detection(JobId=job_id, NextToken=next_token)
@@ -95,7 +99,9 @@ class TextractClass:
                     next_token = response.get('NextToken')
                     if not next_token:
                         break
-
+                
+                # Deleta o arquivo do S3
+                self.s3_service.delete_object(bucket_name, file_name)
                 return results
             else:
                 raise Exception(f"Erro ao processar documento com Textract: {status_response.get('StatusMessage', 'Status desconhecido')}")
