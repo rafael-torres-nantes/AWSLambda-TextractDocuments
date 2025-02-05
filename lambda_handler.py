@@ -3,7 +3,11 @@ import base64
 from dotenv import load_dotenv
 from services.textract_service import TextractClass
 
+# Carrega as variáveis de ambiente
 load_dotenv()
+
+S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
+S3_DOCUMENT_KEY = os.getenv('S3_DOCUMENT_KEY')
 
 def lambda_handler(event, context):
     """
@@ -21,11 +25,11 @@ def lambda_handler(event, context):
         if isinstance(document_base64, str):
             document_base64 = document_base64.encode('utf-8')
 
-    # Debug para verificar o base64
+    # 2 - Debug para verificar o base64
     print(f'[DEBUG] Base64 (primeiros 100 caracteres): {document_base64[:100]}')
 
-    # 2. Processa com Textract
-    response = textract_service.extract_text_from_document(document_base64)
+    # 3 - Processa com Textract e extrai o texto
+    response = textract_service.extract_text_from_document(document_base64, S3_BUCKET_NAME, S3_DOCUMENT_KEY)
     print(f'[DEBUG] Texto extraído: {response}')
     
     return response
