@@ -30,8 +30,13 @@ def lambda_handler(event, context):
 
     # 3 - Processa com Textract e extrai o texto
     response = textract_service.extract_text_from_document(document_base64, S3_BUCKET_NAME, S3_DOCUMENT_KEY)
-    print(f'[DEBUG] Texto extraído: {response}')
+
+    # 4 - Filtra a resposta para retornar apenas o texto
+    extract_text = textract_service.extract_all_texts(response)
     
-    return response
+    # 5 - Debug para verificar o texto extraído
+    print(f'[DEBUG] Texto extraído: {extract_text}')
+    
+    return extract_text
 
 lambda_handler(None, None)

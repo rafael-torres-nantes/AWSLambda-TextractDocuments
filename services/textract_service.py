@@ -104,3 +104,22 @@ class TextractClass:
             raise Exception(f"Erro na decodificação do base64: {str(e)}")
         except Exception as e:
             raise Exception(f"Erro ao processar documento com Textract: {str(e)}")
+        
+
+    def extract_all_texts(self, textract_response):
+        """
+        Extrai todos os textos dos blocos retornados pelo Textract.
+        
+        Args:
+            textract_response (list): Lista de blocos retornados pelo Textract.
+            
+        Returns:
+            list: Lista de textos extraídos.
+        """
+        all_texts = ""
+
+        for block in textract_response:
+            if 'Text' in block:
+                all_texts += block['Text']
+
+        return all_texts
