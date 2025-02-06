@@ -29,21 +29,9 @@ O projeto tem como objetivo criar uma solução automatizada para processar docu
 
 O sistema foi desenvolvido utilizando **Python** e faz uso do serviço **AWS Textract** para extrair texto de documentos PDF.
 
-* **Lambda Handler**: O arquivo 
-
-lambda_handler.py
-
- contém a função lambda que processa os documentos.
-* **Serviços AWS**: A integração com AWS Textract está localizada em 
-
-textract_service.py
-
-.
-* **Utilitários**: A pasta 
-
-utils
-
- contém funções para importação de credenciais AWS e outras funções auxiliares.
+* **Lambda Handler**: O arquivo lambda_handler.py  contém a função lambda que processa os documentos.
+* **Serviços AWS**: A integração com AWS Textract está localizada em textract_service.py.
+* **Utilitários**: A pasta utils contém funções para importação de credenciais AWS e outras funções auxiliares.
 
 ## 🔀 Arquitetura da aplicação
 
@@ -85,15 +73,7 @@ Para executar o projeto localmente, siga as instruções abaixo:
    ```
 
 3. **Configure as credenciais AWS:**
-   Preencha o arquivo 
-
-.env
-
- com suas credenciais AWS conforme o exemplo em 
-
-.env.example
-
-.
+   Preencha o arquivo .env  com suas credenciais AWS conforme o exemplo em .env.example.
 
 4. **Execute o lambda handler:**
    ```bash
