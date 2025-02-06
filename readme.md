@@ -1,4 +1,4 @@
-# Processamento de Documentos com AWS Textract
+# Processamento de Documentos com AWS Textract com Base64
 
 ## 👨‍💻 Projeto desenvolvido por:
 [Rafael Torres Nantes](https://github.com/rafael-torres-nantes)
